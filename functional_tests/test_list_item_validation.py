@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import time
 
 from .base import FunctionalTest
 
@@ -22,9 +23,11 @@ class ItemValidationTest(FunctionalTest):
         form_field.send_keys('Buy milk')
         form_field.send_keys(Keys.RETURN)
         self.check_for_row_in_list_table('1: Buy milk')
+        time.sleep(2)
 
         # Perversely, she now decides to submit a second blank list item.
         self.browser.find_element_by_id('id_new_item').send_keys(Keys.RETURN)
+        time.sleep(4)
 
         # She receives a similar warning on the list page.
         self.check_for_row_in_list_table('1: Buy milk')
@@ -35,5 +38,7 @@ class ItemValidationTest(FunctionalTest):
         form_field = self.browser.find_element_by_id('id_new_item')
         form_field.send_keys('Make tea')
         form_field.send_keys(Keys.RETURN)
+        time.sleep(2)
+
         self.check_for_row_in_list_table('1: Buy milk')
         self.check_for_row_in_list_table('2: Make tea')

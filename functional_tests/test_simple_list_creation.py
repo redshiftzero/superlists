@@ -31,7 +31,7 @@ class NewVisitorTest(FunctionalTest):
         # When she hits enter, the page updates, and now the page lists
         # "1: Buy peacock feathers" as an item in a to-do list table
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(3)
+        time.sleep(4)
         self.check_for_row_in_list_table('1: Buy peacock feathers')
 
         # There is still a text box inviting her to add another item. She
@@ -40,7 +40,14 @@ class NewVisitorTest(FunctionalTest):
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Use peacock feathers to make a fly')
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(3)
+        time.sleep(5)
+        # These extra sleeps and hitting enters
+        # are here due to Selenium 3 weirdness that I don't
+        # want to troubleshoot just yet.
+        if inputbox.is_displayed():
+            inputbox.send_keys(Keys.ENTER)
+            time.sleep(5)
+
 
         # The page updates again, and now shows both items on her list
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
