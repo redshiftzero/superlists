@@ -39,3 +39,17 @@ Assume we already have a user account at `/home/USERNAME`:
      - static
      - virtualenv
 ```
+
+## Use fabric for deployment
+
+Deploy to staging:
+
+```
+$ fab deploy:host=USERNAME@staging.SITENAME
+```
+
+Deploy to prod:
+
+```
+$ fab deploy:host=USERNAME@SITENAME
+```
