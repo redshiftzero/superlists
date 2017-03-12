@@ -12,7 +12,7 @@ class ItemValidationTest(FunctionalTest):
     def test_error_messages_are_cleared_on_input(self):
         # Edith starts a new list in a way that causes a validation error:
         self.browser.get(self.server_url)
-        self.get_item_input_box().send_keys('\n')
+        self.get_item_input_box().send_keys(Keys.RETURN)
         error = self.get_error_element()
         self.assertTrue(error.is_displayed())
 
