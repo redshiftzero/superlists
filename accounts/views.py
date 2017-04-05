@@ -28,7 +28,10 @@ def send_login_email(request):
 
 def login(request):
     try:
-        auth.authenticate(uid=request.GET.get('token'))
+        user = auth.authenticate(uid=request.GET.get('token'))
     except AttributeError:
-        pass
+        user = None
+
+    if user:
+        auth.login(request, user)
     return redirect('/')
