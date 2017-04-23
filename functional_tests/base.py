@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 import sys
 import time
+import os
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
@@ -27,6 +28,9 @@ class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
+        self.staging_server = os.environ.get('STAGING_SERVER')
+        if self.staging_server:
+            setattr(self, 'liveserver', 'http://' + self.staging_server)
 
     def tearDown(self):
         self.browser.quit()
