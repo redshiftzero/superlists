@@ -38,7 +38,7 @@ class ListModelTest(TestCase):
         self.assertIn(list_, user.list_set.all())
 
     def test_list_owner_is_optional(self):
-        Lists.objects.create()  # should not raise
+        List.objects.create()  # should not raise
 
     def test_duplicate_items_are_invalid(self):
         list_ = List.objects.create()
@@ -67,3 +67,9 @@ class ListModelTest(TestCase):
     def test_string_representation(self):
         item = Item(text='some text')
         self.assertEqual(str(item), 'some text')
+
+    def test_list_name_is_first_item_text(self):
+        list_ = List.objects.create()
+        Item.objects.create(list=list_, text='first item')
+        Item.objects.create(list=list_, text='second item')
+        self.assertEqual(list_.name, 'first item')
